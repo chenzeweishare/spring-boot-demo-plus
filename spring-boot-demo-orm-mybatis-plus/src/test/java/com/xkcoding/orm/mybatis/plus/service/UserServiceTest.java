@@ -1,5 +1,9 @@
 package com.xkcoding.orm.mybatis.plus.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
@@ -8,16 +12,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xkcoding.orm.mybatis.plus.SpringBootDemoOrmMybatisPlusApplicationTests;
+import com.xkcoding.orm.mybatis.plus.entity.OrderLog;
+import com.xkcoding.orm.mybatis.plus.entity.Use;
 import com.xkcoding.orm.mybatis.plus.entity.User;
-import com.xkcoding.orm.mybatis.plus.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -36,6 +38,12 @@ import java.util.stream.Collectors;
 public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTests {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UseService useService;
+
+    @Autowired
+    private OrderLogService orderLogService;
 
     /**
      * 测试Mybatis-Plus 新增
@@ -100,6 +108,14 @@ public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTest
         User user = userService.getById(1L);
         Assert.assertNotNull(user);
         log.debug("【user】= {}", user);
+
+        Use use = useService.getById(1000L);
+        Assert.assertNotNull(use);
+        log.debug("【use】= {}", use);
+
+        OrderLog orderLog = orderLogService.getById(1000L);
+        Assert.assertNotNull(orderLog);
+        log.debug("【orderLog】= {}", orderLog);
     }
 
     /**
@@ -127,6 +143,23 @@ public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTest
         log.debug("【page.getRecords()】= {}", page.getRecords());
     }
 
+    @Test
+    public void testSimplePage() {
+        long startTime = System.currentTimeMillis();
+        Page<OrderLog> page = new Page<OrderLog>(2500, 200);
+        //page.setOptimizeCountSql(false);
+        IPage<OrderLog> pageData = orderLogService.page(page, new QueryWrapper<>());
+        //log.debug("【page.getRecords()】= {}", pageData.getRecords());
+        log.debug(" 耗时 = {}", System.currentTimeMillis() - startTime);
+    }
+
+
+    @Test
+    public void testPage() {
+    }
+
+
+
     /**
      * 测试Mybatis-Plus 自定义查询
      */
@@ -148,6 +181,15 @@ public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTest
      */
     private void initData() {
         testSaveList();
+    }
+
+
+    public static void main(String[] args) {
+        List<String> arrayList = new ArrayList<>();
+        arrayList.add("1");
+        if (CollUtil.isEmpty(arrayList)) {
+            System.out.println("xxx");
+        }
     }
 
 }

@@ -1,14 +1,14 @@
 package com.xkcoding.orm.mybatis.plus.entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.util.Date;
 
 import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT;
 import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;

@@ -1,5 +1,7 @@
 package com.xkcoding.websocket.socketio.controller;
 
+import java.lang.reflect.Field;
+
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -8,11 +10,8 @@ import com.xkcoding.websocket.socketio.payload.BroadcastMessageRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Field;
 
 /**
  * <p>
@@ -35,11 +34,12 @@ public class MessageController {
     private MessageEventHandler messageHandler;
 
     @PostMapping("/broadcast")
-    public Dict broadcast(@RequestBody BroadcastMessageRequest message) {
-        if (isBlank(message)) {
-            return Dict.create().set("flag", false).set("code", 400).set("message", "参数为空");
-        }
-        messageHandler.sendToBroadcast(message);
+    public Dict broadcast() {
+//        if (isBlank(message)) {
+//            return Dict.create().set("flag", false).set("code", 400).set("message", "参数为空");
+//        }
+        messageHandler.sendToBroadcast(BroadcastMessageRequest.builder().message("测试测试").build());
+        //messageHandler.sendToBroadcast(message);
         return Dict.create().set("flag", true).set("code", 200).set("message", "发送成功");
     }
 

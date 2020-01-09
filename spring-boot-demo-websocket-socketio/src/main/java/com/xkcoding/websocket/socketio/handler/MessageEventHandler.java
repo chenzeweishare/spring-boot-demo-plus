@@ -1,5 +1,9 @@
 package com.xkcoding.websocket.socketio.handler;
 
+import java.util.Collection;
+import java.util.Optional;
+import java.util.UUID;
+
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.corundumstudio.socketio.AckRequest;
@@ -17,10 +21,6 @@ import com.xkcoding.websocket.socketio.payload.SingleMessageRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * <p>

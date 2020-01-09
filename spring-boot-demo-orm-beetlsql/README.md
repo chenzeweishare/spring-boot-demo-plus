@@ -97,7 +97,7 @@ spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/spring-boot-demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 #### beetlsql starter不能开启下面选项
 #    type: com.zaxxer.hikari.HikariDataSource

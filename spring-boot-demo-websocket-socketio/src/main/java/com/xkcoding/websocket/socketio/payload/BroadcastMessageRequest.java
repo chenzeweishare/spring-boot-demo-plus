@@ -1,5 +1,6 @@
 package com.xkcoding.websocket.socketio.payload;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -15,6 +16,7 @@ import lombok.Data;
  * @version: V1.0
  * @modified: yangkai.shen
  */
+@Builder
 @Data
 public class BroadcastMessageRequest {
     /**

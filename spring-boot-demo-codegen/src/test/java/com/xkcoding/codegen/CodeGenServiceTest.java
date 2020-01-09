@@ -1,5 +1,9 @@
 package com.xkcoding.codegen;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.db.Entity;
 import com.xkcoding.codegen.common.PageResult;
@@ -13,10 +17,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 
 /**
  * <p>
@@ -44,10 +44,10 @@ public class CodeGenServiceTest {
         request.setCurrentPage(1);
         request.setPageSize(10);
         request.setPrepend("jdbc:mysql://");
-        request.setUrl("127.0.0.1:3306/spring-boot-demo");
+        request.setUrl("127.0.0.1:3306/message");
         request.setUsername("root");
-        request.setPassword("root");
-        request.setTableName("sec_");
+        request.setPassword("123456");
+        request.setTableName("sms");
         PageResult<Entity> pageResult = codeGenService.listTables(request);
         log.info("【pageResult】= {}", pageResult);
     }
@@ -59,20 +59,20 @@ public class CodeGenServiceTest {
 
         TableRequest request = new TableRequest();
         request.setPrepend("jdbc:mysql://");
-        request.setUrl("127.0.0.1:3306/spring-boot-demo");
+        request.setUrl("127.0.0.1:3306/message?serverTimezone=UTC");
         request.setUsername("root");
-        request.setPassword("root");
-        request.setTableName("shiro_user");
+        request.setPassword("123456");
+        request.setTableName("sms");
         config.setRequest(request);
 
-        config.setModuleName("shiro");
-        config.setAuthor("Yangkai.Shen");
-        config.setComments("用户角色信息");
+        config.setModuleName("sms");
+        config.setAuthor("czw");
+        config.setComments("信息表");
         config.setPackageName("com.xkcoding");
-        config.setTablePrefix("shiro_");
+        //config.setTablePrefix("shiro_");
 
         byte[] zip = codeGenService.generatorCode(config);
-        OutputStream outputStream = new FileOutputStream(new File("/Users/yangkai.shen/Desktop/" + request.getTableName() + ".zip"));
+        OutputStream outputStream = new FileOutputStream(new File("C:\\Users\\PC0029\\Desktop\\pojo\\" + request.getTableName() + ".zip"));
         IoUtil.write(outputStream, true, zip);
     }
 

@@ -1,15 +1,12 @@
-package com.xkcoding.websocket.task;
+package com.xkcoding.websocket.socketio.task;
 
 import java.util.Date;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.lang.Dict;
-import cn.hutool.json.JSONUtil;
-import com.xkcoding.websocket.model.Server;
-import com.xkcoding.websocket.payload.ServerVO;
-import com.xkcoding.websocket.util.MessageUtil;
-import com.xkcoding.websocket.util.ServerUtil;
+import com.xkcoding.websocket.socketio.handler.MessageEventHandler;
+import com.xkcoding.websocket.socketio.payload.BroadcastMessageRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +27,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServerTask {
 
-//    @Autowired
-//    private SimpMessagingTemplate wsTemplate;
+    @Autowired
+    private MessageEventHandler messageEventHandler;
 
     /**
      * 按照标准时间来算，每隔 2s 执行一次
@@ -40,12 +37,7 @@ public class ServerTask {
     public void websocket() throws Exception {
         log.info("【推送消息】开始执行：{}", DateUtil.formatDateTime(new Date()));
         // 查询服务器状态
-        Server server = new Server();
-        server.copyTo();
-        ServerVO serverVO = ServerUtil.wrapServerVO(server);
-        Dict dict = ServerUtil.wrapServerDict(serverVO);
-        //wsTemplate.convertAndSend(WebSocketConsts.PUSH_SERVER, JSONUtil.toJsonStr(dict));
-        MessageUtil.sendMessageToUsers(JSONUtil.toJsonStr(dict));
+        messageEventHandler.sendToBroadcast(BroadcastMessageRequest.builder().message("测试测试").build());
         log.info("【推送消息】执行结束：{}", DateUtil.formatDateTime(new Date()));
     }
 }
